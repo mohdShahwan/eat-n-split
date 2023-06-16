@@ -1,5 +1,4 @@
 import { Button } from "./Button";
-import { Span } from "./Span";
 
 export function Friend({ friend, onSelect, curSelection }) {
   const { id, name, image, balance } = friend;
@@ -10,7 +9,7 @@ export function Friend({ friend, onSelect, curSelection }) {
       <img src={image} alt={`${name}`} />
       <h3>{name}</h3>
       <p>
-        {balance === 0 && <Span>You and {name} are even</Span>}
+        {balance === 0 && <p>You and {name} are even</p>}
         {balance > 0 && (
           <p className="green">
             {name} owes you {balance}€
