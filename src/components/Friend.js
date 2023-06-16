@@ -1,8 +1,9 @@
 import { Button } from "./Button";
 import { Span } from "./Span";
 
-export function Friend({ friend }) {
-  const { name, image, balance } = friend;
+export function Friend({ friend, onSelect, curSelection }) {
+  const { id, name, image, balance } = friend;
+  const isSelected = curSelection?.id === id;
 
   return (
     <li>
@@ -21,7 +22,9 @@ export function Friend({ friend }) {
           </Span>
         )}
       </p>
-      <Button>Select</Button>
+      <Button onClick={() => onSelect(friend)}>
+        {isSelected ? "Close" : "Select"}
+      </Button>
     </li>
   );
 }

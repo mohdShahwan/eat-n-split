@@ -1,8 +1,8 @@
 import { Button } from "./Button";
 import { useState } from "react";
 
-export function SplitBillForm({ friend, onUpdate }) {
-  let { id, name, balance } = friend;
+export function SplitBillForm({ curSelection, onUpdate, onSubmit }) {
+  const { id, name, balance } = curSelection;
 
   const [bill, setBill] = useState("");
   const [selfExpense, setSelfExpense] = useState("");
@@ -13,11 +13,13 @@ export function SplitBillForm({ friend, onUpdate }) {
     e.preventDefault();
     if (!bill || !selfExpense) return;
 
+    let newBalance = balance;
     payer === "self"
-      ? (balance = balance + friendExpense)
-      : (balance = balance - selfExpense);
+      ? (newBalance = balance + friendExpense)
+      : (newBalance = balance - selfExpense);
 
-    onUpdate(id, balance);
+    onUpdate(id, newBalance);
+    onSubmit(null);
   }
 
   return (

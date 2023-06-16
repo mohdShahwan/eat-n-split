@@ -26,6 +26,7 @@ export const initialFriends = [
 
 export default function App() {
   const [friendsList, setFriendsList] = useState(initialFriends);
+  const [curSelection, setCurSelection] = useState(null);
 
   function handleAddFriend(newFriend) {
     setFriendsList((currentList) => [...currentList, newFriend]);
@@ -38,10 +39,26 @@ export default function App() {
       )
     );
   }
+
+  function handleSelect(friend) {
+    setCurSelection(() => (curSelection?.id === friend?.id ? null : friend));
+  }
+
   return (
     <div className="app">
-      <FriendsList onAdd={handleAddFriend} friendsList={friendsList} />
-      <SplitBillForm friend={initialFriends[1]} onUpdate={handleUpdateFriend} />
+      <FriendsList
+        onAdd={handleAddFriend}
+        friendsList={friendsList}
+        onSelect={handleSelect}
+        curSelection={curSelection}
+      />
+      {curSelection && (
+        <SplitBillForm
+          curSelection={curSelection}
+          onUpdate={handleUpdateFriend}
+          onSubmit={handleSelect}
+        />
+      )}
     </div>
   );
 }
