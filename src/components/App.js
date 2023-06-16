@@ -87,15 +87,33 @@ function AddFriendForm({ onAdd }) {
   );
 }
 
-function Friend({ details }) {
+function Friend({ friend }) {
+  const { name, image, balance } = friend;
+
   return (
     <li>
-      <img src={details.image} alt={`${details.name}`} />
-      <h3>{details.name}</h3>
-      <p>Who owes the other</p>
+      <img src={image} alt={`${name}`} />
+      <h3>{name}</h3>
+      <p>
+        {balance === 0 && <Span>You and {name} are even</Span>}
+        {balance > 0 && (
+          <Span color="green">
+            {name} owes you {balance}€
+          </Span>
+        )}
+        {balance < 0 && (
+          <Span color="red">
+            You owe {name} {-balance}€
+          </Span>
+        )}
+      </p>
       <Button>Select</Button>
     </li>
   );
+}
+
+function Span({ color, children }) {
+  return <span className={color}>{children}</span>;
 }
 
 function Button({ onClick, children }) {
