@@ -1,15 +1,7 @@
-import { useState } from "react";
-import { initialFriends } from "./App";
 import { Friend } from "./Friend";
 import { AddFriendForm } from "./AddFriendForm";
 
-export function FriendsList() {
-  const [friendsList, setFriendsList] = useState(initialFriends);
-
-  function handleAddFriend(newFriend) {
-    setFriendsList((currentList) => [...currentList, newFriend]);
-  }
-
+export function FriendsList({ onAdd, friendsList }) {
   return (
     <div className="sidebar">
       <ul>
@@ -17,7 +9,7 @@ export function FriendsList() {
           <Friend key={friend.id} friend={friend} />
         ))}
       </ul>
-      <AddFriendForm onAdd={handleAddFriend} />
+      <AddFriendForm onAdd={onAdd} />
     </div>
   );
 }

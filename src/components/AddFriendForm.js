@@ -10,7 +10,10 @@ export function AddFriendForm({ onAdd }) {
   if (!isOpen)
     return <Button onClick={() => setIsOpen(() => true)}>Add friend</Button>;
 
-  function handleAddFriend() {
+  function handleAddFriend(e) {
+    e.preventDefault();
+    if (!name) return;
+
     setIsOpen(() => false);
     onAdd({ id: id, name: name, image: image, balance: 0 });
     setName("");
@@ -19,6 +22,7 @@ export function AddFriendForm({ onAdd }) {
 
   return (
     <>
+      {/* TODO - onSubmit event */}
       <form className="form-add-friend">
         <label>👩🏻‍🤝‍👩🏻Friend name</label>
         <input

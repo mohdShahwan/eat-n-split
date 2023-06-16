@@ -1,4 +1,5 @@
 import "../index.css";
+import { useState } from "react";
 import { FriendsList } from "./FriendsList";
 import { SplitBillForm } from "./SplitBillForm";
 
@@ -24,10 +25,23 @@ export const initialFriends = [
 ];
 
 export default function App() {
+  const [friendsList, setFriendsList] = useState(initialFriends);
+
+  function handleAddFriend(newFriend) {
+    setFriendsList((currentList) => [...currentList, newFriend]);
+  }
+
+  function handleUpdateFriend(id, newBalance) {
+    setFriendsList((currentList) =>
+      currentList.map((friend) =>
+        friend.id === id ? { ...friend, balance: newBalance } : friend
+      )
+    );
+  }
   return (
     <div className="app">
-      <FriendsList />
-      <SplitBillForm friend={initialFriends[1]} />
+      <FriendsList onAdd={handleAddFriend} friendsList={friendsList} />
+      <SplitBillForm friend={initialFriends[1]} onUpdate={handleUpdateFriend} />
     </div>
   );
 }
