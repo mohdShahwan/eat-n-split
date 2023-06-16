@@ -33,8 +33,8 @@ export default function App() {
 function FriendsList() {
   const [friendsList, setFriendsList] = useState(initialFriends);
 
-  function handleAddFriend() {
-    setFriendsList((currentList) => [...currentList]);
+  function handleAddFriend(newFriend) {
+    setFriendsList((currentList) => [...currentList, newFriend]);
   }
 
   return (
@@ -44,17 +44,59 @@ function FriendsList() {
           <Friend key={friend.id} details={friend} />
         ))}
       </ul>
-      <AddFriendForm />
+      <AddFriendForm onAdd={handleAddFriend} />
     </div>
   );
 }
 
-function AddFriendForm() {
+function AddFriendForm({ onAdd }) {
+  const id = Math.floor(Math.random() * 999999 + 1);
   const [isOpen, setIsOpen] = useState(false);
+  const [newFriend, setNewFriend] = useState({
+    name: "",
+    image: `https://i.pravatar.cc/48?u=${id}`,
+    balance: 0,
+  });
+
+  function handleAddFriend() {
+    setIsOpen(() => false);
+    onAdd({ id: id, ...newFriend });
+    setNewFriend(() => {
+      return {
+        name: "",
+        image: `https://i.pravatar.cc/48?u=${id}`,
+        balance: 0,
+      };
+    });
+  }
+
+  if (!isOpen)
+    return <Button onClick={() => setIsOpen(() => true)}>Add friend</Button>;
+
   return (
-    <div className="form form-add-friend">
-      <Button>Add friend</Button>
-    </div>
+    <form className="form-add-friend">
+      <label>👩🏻‍🤝‍👩🏻Friend name</label>
+      <input
+        type="text"
+        value={newFriend.name}
+        onChange={(e) =>
+          setNewFriend((currentNewFriend) => {
+            return { ...currentNewFriend, name: e.target.value };
+          })
+        }
+      />
+      <label>🌃Image URL</label>
+      <input
+        type="text"
+        value={newFriend.image}
+        onChange={(e) =>
+          setNewFriend((currentNewFriend) => {
+            return { ...currentNewFriend, image: e.target.value };
+          })
+        }
+      />
+      <Button onClick={handleAddFriend}>Add</Button>
+    </form>
   );
 }
 
