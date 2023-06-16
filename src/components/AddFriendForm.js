@@ -2,22 +2,24 @@ import { useState } from "react";
 import { Button } from "./Button";
 
 export function AddFriendForm({ onAdd }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const id = Math.floor(Math.random() * 999999 + 1);
   const [name, setName] = useState("");
-  const [image, setImage] = useState(`https://i.pravatar.cc/48?u=${id}`);
-
-  if (!isOpen)
-    return <Button onClick={() => setIsOpen(() => true)}>Add friend</Button>;
+  const [image, setImage] = useState("https://i.pravatar.cc/48");
 
   function handleAddFriend(e) {
     e.preventDefault();
-    if (!name) return;
+    if (!name || !image) return;
 
-    setIsOpen(() => false);
-    onAdd({ id: id, name: name, image: image, balance: 0 });
+    const id = crypto.randomUUID();
+    const newFriend = {
+      id,
+      name,
+      image: `${image}?=${id}`,
+      balance: 0,
+    };
+
+    onAdd(newFriend);
     setName("");
-    setImage(`https://i.pravatar.cc/48?u=${id}`);
+    setImage(`https://i.pravatar.cc/48`);
   }
 
   return (
@@ -37,7 +39,6 @@ export function AddFriendForm({ onAdd }) {
         />
         <Button>Add</Button>
       </form>
-      <Button onClick={() => setIsOpen(false)}>Close</Button>
     </>
   );
 }

@@ -2,6 +2,8 @@ import "../index.css";
 import { useState } from "react";
 import { FriendsList } from "./FriendsList";
 import { SplitBillForm } from "./SplitBillForm";
+import { AddFriendForm } from "./AddFriendForm";
+import { Button } from "./Button";
 
 export const initialFriends = [
   {
@@ -25,23 +27,34 @@ export const initialFriends = [
 ];
 
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
   const [friendsList, setFriendsList] = useState(initialFriends);
-  const [curSelection, setCurSelection] = useState(null);
+  const [selectedFriend, setSelectedFriend] = useState(null);
+
+  function handleShowAddFriend() {
+    setShowAddFriend((cur) => !cur);
+  }
 
   function handleAddFriend(newFriend) {
     setFriendsList((currentList) => [...currentList, newFriend]);
+    setShowAddFriend(false);
   }
 
-  function handleUpdateFriend(id, newBalance) {
+  function handleSplitBill(newBalance) {
     setFriendsList((currentList) =>
       currentList.map((friend) =>
-        friend.id === id ? { ...friend, balance: newBalance } : friend
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: newBalance }
+          : friend
       )
     );
+
+    setSelectedFriend(null);
   }
 
-  function handleSelect(friend) {
-    setCurSelection(() => (curSelection?.id === friend?.id ? null : friend));
+  function handleSelection(friend) {
+    setSelectedFriend(() => (selectedFriend?.id === friend.id ? null : friend));
+    setShowAddFriend(false);
   }
 
   return (
@@ -50,15 +63,18 @@ export default function App() {
         <FriendsList
           onAdd={handleAddFriend}
           friendsList={friendsList}
-          onSelect={handleSelect}
-          curSelection={curSelection}
+          onSelect={handleSelection}
+          selectedFriend={selectedFriend}
         />
+        {showAddFriend && <AddFriendForm onAdd={handleAddFriend} />}
+        <Button onClick={handleShowAddFriend}>
+          {showAddFriend ? "Close" : "Add friend"}
+        </Button>
       </div>
-      {curSelection && (
+      {selectedFriend && (
         <SplitBillForm
-          curSelection={curSelection}
-          onUpdate={handleUpdateFriend}
-          onSubmit={handleSelect}
+          selectedFriend={selectedFriend}
+          onUpdate={handleSplitBill}
         />
       )}
     </div>

@@ -1,42 +1,42 @@
 import { Button } from "./Button";
 import { useState } from "react";
 
-export function SplitBillForm({ curSelection, onUpdate, onSubmit }) {
-  const { id, name, balance } = curSelection;
+export function SplitBillForm({ selectedFriend, onUpdate }) {
+  const { name, balance } = selectedFriend;
 
   const [bill, setBill] = useState("");
   const [selfExpense, setSelfExpense] = useState("");
-  const friendExpense = Number(bill) - Number(selfExpense);
+  const friendExpense = bill ? bill - selfExpense : "";
   const [payer, setPayer] = useState("self");
 
-  function handleSplitBill(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     if (!bill || !selfExpense) return;
 
-    let newBalance = balance;
-    payer === "self"
-      ? (newBalance = balance + friendExpense)
-      : (newBalance = balance - selfExpense);
-
-    onUpdate(id, newBalance);
-    onSubmit(null);
+    onUpdate(
+      payer === "self" ? balance + friendExpense : balance - selfExpense
+    );
   }
 
   return (
-    <form className="form-split-bill" onSubmit={handleSplitBill}>
+    <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split a bill with {name}</h2>
       <label>💰 Bill value:</label>
       <input
         type="number"
         value={bill}
-        onChange={(e) => setBill(() => e.target.value)}
+        onChange={(e) => setBill(() => +e.target.value)}
       />
 
       <label>🧍‍♂️ Your expense:</label>
       <input
         type="number"
         value={selfExpense}
-        onChange={(e) => setSelfExpense(() => e.target.value)}
+        onChange={(e) =>
+          setSelfExpense(() =>
+            +e.target.value > bill ? selfExpense : +e.target.value
+          )
+        }
       />
 
       <label>👩🏻‍🤝‍👩🏻 {name}'s expense:</label>

@@ -1,7 +1,6 @@
 import { Friend } from "./Friend";
-import { AddFriendForm } from "./AddFriendForm";
 
-export function FriendsList({ onAdd, friendsList, onSelect, curSelection }) {
+export function FriendsList({ friendsList, onSelect, selectedFriend }) {
   return (
     <div className="sidebar">
       <ul>
@@ -10,11 +9,10 @@ export function FriendsList({ onAdd, friendsList, onSelect, curSelection }) {
             key={friend.id}
             friend={friend}
             onSelect={onSelect}
-            curSelection={curSelection}
+            selectedFriend={selectedFriend}
           />
         ))}
       </ul>
-      <AddFriendForm onAdd={onAdd} />
     </div>
   );
 }
