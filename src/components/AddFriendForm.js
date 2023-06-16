@@ -22,8 +22,7 @@ export function AddFriendForm({ onAdd }) {
 
   return (
     <>
-      {/* TODO - onSubmit event */}
-      <form className="form-add-friend">
+      <form className="form-add-friend" onSubmit={handleAddFriend}>
         <label>👩🏻‍🤝‍👩🏻Friend name</label>
         <input
           type="text"
@@ -36,7 +35,7 @@ export function AddFriendForm({ onAdd }) {
           value={image}
           onChange={(e) => setImage(() => e.target.value)}
         />
-        <Button onClick={handleAddFriend}>Add</Button>
+        <Button>Add</Button>
       </form>
       <Button onClick={() => setIsOpen(false)}>Close</Button>
     </>
