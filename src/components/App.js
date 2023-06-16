@@ -46,12 +46,14 @@ export default function App() {
 
   return (
     <div className="app">
-      <FriendsList
-        onAdd={handleAddFriend}
-        friendsList={friendsList}
-        onSelect={handleSelect}
-        curSelection={curSelection}
-      />
+      <div className="sidebar">
+        <FriendsList
+          onAdd={handleAddFriend}
+          friendsList={friendsList}
+          onSelect={handleSelect}
+          curSelection={curSelection}
+        />
+      </div>
       {curSelection && (
         <SplitBillForm
           curSelection={curSelection}

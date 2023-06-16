@@ -12,14 +12,14 @@ export function Friend({ friend, onSelect, curSelection }) {
       <p>
         {balance === 0 && <Span>You and {name} are even</Span>}
         {balance > 0 && (
-          <Span color="green">
+          <p className="green">
             {name} owes you {balance}€
-          </Span>
+          </p>
         )}
         {balance < 0 && (
-          <Span color="red">
+          <p className="red">
             You owe {name} {-balance}€
-          </Span>
+          </p>
         )}
       </p>
       <Button onClick={() => onSelect(friend)}>
