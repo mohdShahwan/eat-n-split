@@ -1,4 +1,4 @@
-# React Mini Project: Friends Expense Tracker
+# React Mini Project: Eat-'N-Split
 
 This mini project focuses on working with props, components, events, forms, and state management in interactive components in React. The project involves creating an expense tracker for friends.
 
