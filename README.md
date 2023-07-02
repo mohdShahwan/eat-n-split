@@ -11,6 +11,8 @@ The project allows users to track expenses and balances among friends. It includ
 - Adding new friends to the expense tracker.
 - Splitting bills between the user and the selected friend.
 
+### [ Live link](https://mohdshahwan.github.io/eat-n-split/)
+
 ## Technologies Used
 
 - React
