@@ -33,6 +33,13 @@ body {
   align-items: start;
 }
 
+@media (max-width: 840px) {
+  .app {
+    grid-template-columns: 44rem;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
 .button {
   background-color: var(--color-medium);
   color: #343a40;
