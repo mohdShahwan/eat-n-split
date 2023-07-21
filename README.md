@@ -41,6 +41,6 @@ To get a local copy of this project up and running, follow these steps:
 
 ## Credits
 
-This mini project is part of the React Udemy course by Jonas Schmedtmann. The code and implementation were done independently.
+This mini project is part of the React Udemy course by Jonas Schmedtmann.
 
 Thank you for visiting this repository and reviewing my mini project!
